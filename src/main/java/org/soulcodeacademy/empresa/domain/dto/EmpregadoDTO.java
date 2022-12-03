@@ -10,9 +10,6 @@ import javax.validation.constraints.NotNull;
 
 public class EmpregadoDTO {
 
-
-    private Integer idEmpregado;
-
     @NotNull(message = "nome obrigatório")
     private String nome;
 
@@ -24,16 +21,11 @@ public class EmpregadoDTO {
     @Min(value = 3000, message = "campo salário inválido")
     private Double salario;
 
-    @NotNull
-    private Endereco endereco;
+    @NotNull(message = "O campo idEndereco é obrigatório")
+    private Integer idEndereco;
 
-    public Integer getIdEmpregado() {
-        return idEmpregado;
-    }
 
-    public void setIdEmpregado(Integer idEmpregado) {
-        this.idEmpregado = idEmpregado;
-    }
+    private Integer idProjeto;
 
     public String getNome() {
         return nome;
@@ -59,11 +51,21 @@ public class EmpregadoDTO {
         this.salario = salario;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
+    public Integer getIdEndereco() {
+        return idEndereco;
     }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
+    public void setIdEndereco(Integer idEndereco) {
+        this.idEndereco = idEndereco;
     }
+
+    public Integer getIdProjeto() {
+        return idProjeto;
+    }
+
+    public void setIdProjeto(Integer idProjeto) {
+        this.idProjeto = idProjeto;
+    }
+
+
 }

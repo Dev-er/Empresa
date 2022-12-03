@@ -1,6 +1,8 @@
 package org.soulcodeacademy.empresa.services;
 
 import org.soulcodeacademy.empresa.domain.Empregado;
+import org.soulcodeacademy.empresa.domain.Endereco;
+import org.soulcodeacademy.empresa.domain.Projeto;
 import org.soulcodeacademy.empresa.domain.dto.EmpregadoDTO;
 import org.soulcodeacademy.empresa.repositories.EmpregadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,31 +17,34 @@ public class EmpregadoService {
     @Autowired
     private EmpregadoRepository empregadoRepository;
 
-    public List<Empregado> listar(){    //retorna todos empregados em forma de lista
+    @Autowired
+    private EnderecoService enderecoService;
+
+    @Autowired
+    private ProjetoService projetoService;
+
+    public List<Empregado> listar() {
 
         return this.empregadoRepository.findAll();
     }
 
-    public List<Empregado> listarFaixaSalarial(Double valor1, Double valor2 ){
+    public List<Empregado> listarFaixaSalarial(Double valor1, Double valor2) {
         return this.empregadoRepository.findBySalarioEntreFaixas(valor1, valor2);
     }
 
-    public Empregado getEmpregado(Integer id) {
-        // Optional = pode existir ou não a entidade
-        Optional<Empregado> empregado = this.empregadoRepository.findById(id);
+    public Empregado getEmpregado(Integer idEmpregado) {
+        Optional<Empregado> empregado = this.empregadoRepository.findById(idEmpregado);
 
         if (empregado.isEmpty()) {
             throw new RuntimeException("O empregado não foi encontrado!");
         } else {
-            return empregado.get(); // pega o valor da entidade encontrada
+            return empregado.get();
         }
     }
-
-    public Empregado salvar(EmpregadoDTO dto){
-        Empregado empregado = new Empregado(null, dto.getEmail(), dto.getNome(), dto.getSalario());
-
-        Empregado salvo = this.empregadoRepository.save(empregado);
-
-        return salvo;
+    public Empregado associarProjeto (Integer idEmpregado, Integer idProjeto) {
+        Empregado empregado = this.getEmpregado(idEmpregado);
+        Projeto projeto = this.projetoService.getProjeto(idProjeto);
+        empregado.getProjetos().add(projeto);
+        return this.empregadoRepository.save(empregado);
     }
 }

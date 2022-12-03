@@ -26,7 +26,8 @@ public class Empregado {
     private Endereco endereco;
 
     // Esta lista representa quais projetos o empregado participa
-    @JsonIgnore
+
+    // @JsonIgnore impede que apareça vinculado no postman
     @ManyToMany(fetch = FetchType.EAGER) // EAGER = antecipa os dados de projeto
     private List<Projeto> projetos = new ArrayList<>();
 

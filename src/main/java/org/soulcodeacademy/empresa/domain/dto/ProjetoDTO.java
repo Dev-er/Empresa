@@ -5,24 +5,15 @@ import javax.validation.constraints.NotNull;
 
 public class ProjetoDTO {
 
-    private Integer idProjeto;
-
     @NotBlank(message = "Descrição é obrigatória")
     private String descricao;
 
     @NotBlank(message = "Nome é obrigatório")
     private String nome;
 
-    @NotBlank
+    @NotBlank(message = "Orçamento é obrigatório")
     private Double orcamento;
 
-    public Integer getIdProjeto() {
-        return idProjeto;
-    }
-
-    public void setIdProjeto(Integer idProjeto) {
-        this.idProjeto = idProjeto;
-    }
 
     public String getDescricao() {
         return descricao;

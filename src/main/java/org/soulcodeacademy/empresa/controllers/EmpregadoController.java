@@ -16,22 +16,25 @@ public class EmpregadoController {
      private EmpregadoService empregadoService;
 
      @GetMapping("/empregados")
-     public List<Empregado> listar(){
+     public List<Empregado> listar() {
 
-         return this.empregadoService.listar();
+          return this.empregadoService.listar();
      }
 
      @GetMapping("/empregados/salario")
-     public List<Empregado> listarFaixaSalarial(@RequestParam Double valor1, @RequestParam Double valor2){
+     public List<Empregado> listarFaixaSalarial(@RequestParam Double valor1, @RequestParam Double valor2) {
 
           return this.empregadoService.listarFaixaSalarial(valor1, valor2);
      }
+
      @GetMapping("/empregados/{idEmpregado}")
-     public Empregado getEmpregado(@PathVariable Integer idEmpregado){
+     public Empregado getEmpregado(@PathVariable Integer idEmpregado) {
           return this.empregadoService.getEmpregado(idEmpregado);
      }
-     @PostMapping
-     public Empregado salvar(@Valid @RequestBody EmpregadoDTO dto){
 
+     @PostMapping("/empregados/{idEmpregado}/projetos/{idProjeto}")
+     public Empregado associarProjeto (@PathVariable Integer idEmpregado, @PathVariable Integer idProjeto) {
+          return this.empregadoService.associarProjeto(idEmpregado, idProjeto);
      }
+
 }
