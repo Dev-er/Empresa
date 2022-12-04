@@ -47,4 +47,27 @@ public class EmpregadoService {
         empregado.getProjetos().add(projeto);
         return this.empregadoRepository.save(empregado);
     }
+
+    public Empregado salvar(EmpregadoDTO dto) {
+        Empregado empregado = new Empregado(null, dto.getNome(), dto.getEmail(), dto.getSalario());
+        Empregado salvo = this.empregadoRepository.save(empregado);
+
+        return salvo;
+    }
+
+    public Empregado atualizar(Integer idEmpregado, EmpregadoDTO dto) {
+        Empregado empregadoAtual = this.getEmpregado(idEmpregado);
+
+        empregadoAtual.setNome(dto.getNome());
+        empregadoAtual.setEmail(dto.getEmail());
+        empregadoAtual.setSalario(dto.getSalario());
+
+        Empregado atualizado = this.empregadoRepository.save(empregadoAtual);
+        return atualizado;
+    }
+
+    public void deletar(Integer idEmpregado) {
+        Empregado empregado = this.getEmpregado(idEmpregado);
+        this.empregadoRepository.delete(empregado);
+    }
 }
